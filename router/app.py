@@ -44,12 +44,19 @@ def generate_response(protocol: str, code: Union[str, int], status: str, headers
 class Router:
     def __init__(self):
         self.routes: dict[Tuple[str, str], callable] = {}
+        self.arr_routes: dict[Tuple[str, str], callable] = {}
 
     def route(self, method: str, URI: str):
         def decorator(f: callable):
             self.routes[method, URI] = f
             return f
 
+        return decorator
+
+    def arr_route(self, method: str, start_URI: str):
+        def decorator(f: callable):
+            self.arr_routes[method, start_URI] = f
+            return f
         return decorator
 
     def handle_request(self, request: HttpRequest):
@@ -60,6 +67,11 @@ class Router:
             headers['Content-Length'] = str(len(body))
             return generate_response('HTTP/1.1', '200', 'OK', headers, body)
         else:
+            for URI, func in self.arr_routes.items():
+                if request.URI.startswith(URI):
+                    body = func(request, headers)
+                    headers['Content-Length'] = str(len(body))
+                    return generate_response('HTTP/1.1', '200', 'OK', headers, body)
             headers['Content-Length'] = '0'
             return generate_response('HTTP/1.1', '404', 'Not Found', headers, '')
 
@@ -82,14 +94,3 @@ class Application:
             send_me = self.router.handle_request(request).encode()
             print(send_me)
             connection.send(send_me)
-
-# request = HttpRequest('''POST /cgi-bin/process.cgi HTTP/1.1
-# User-Agent: Mozilla/4.0 (compatible; MSIE5.01; Windows NT)
-# Host: www.tutorialspoint.com
-# Content-Type: application/x-www-form-urlencoded
-# Content-Length: length
-# Accept-Language: en-us
-# Accept-Encoding: gzip, deflate
-# Connection: Keep-Alive
-#
-# licenseID=string&content=string&/paramsXML=string''')

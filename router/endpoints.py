@@ -8,14 +8,14 @@ def render_path(path: str) -> str:
         return text.read()
 
 
+@application.router.arr_route('GET', '/static')
+def static(request, headers):
+    return 'hello'
+
+
 @application.router.route('GET', '/')
 def main(request, headers):
     return render_path('html_files/index.html')
-
-
-@application.router.route('GET', '/sub')
-def sub(request, headers):
-    return '<h1>This is sub page</h1>'
 
 
 @application.router.route('GET', '/style.css')
