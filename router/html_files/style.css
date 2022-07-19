@@ -1,0 +1,72 @@
+#hello{
+    text-align: center;
+    font-size: 25px;
+}
+
+body{
+    margin: 10px 250px;
+    background: rgb(143, 191, 219);
+}
+
+h2{
+    font-size: 20px;
+    text-align: center;
+    background: rgb(104, 179, 222);
+    margin: 0px 200px;
+    border: 1px solid blue;
+}
+
+#first-game_h2{
+    margin: 0px 130px;
+}
+
+#second_game_h2{
+    margin: 0px 225px;
+}
+
+#third_game_h2{
+    margin: 0px 255px;
+}
+
+#forth_game_h2{
+    margin: 0px 290px;
+}
+
+#forth_game_img{
+    height: 300px;
+    padding: 0px 230px;
+}
+
+p{
+    color: rgb(41, 47, 51);
+    font-family: "Georgia", sans-serif;
+}
+
+.game_p{
+    font-size: 20px;
+}
+
+#our_time_h2{
+    border: 0px solid blue;
+    background: rgb(143, 191, 219);
+    font-size: 24px;
+}
+
+img{
+    height: 250px;
+    padding: 20px 165px;
+}
+
+#tennis_img{
+    height: 200px;
+    padding: 20px 120px;
+}
+
+#space_war_img{
+    height: 250px;
+    padding: 20px 130px;
+}
+
+footer{
+    font-family: Cursive
+    }
